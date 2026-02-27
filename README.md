@@ -56,7 +56,7 @@ La idea es dejar espacios grandes restantes para futuros procesos, pero puede de
     --bg: #f0f2f5;
     --card: #ffffff;
     --primary: #1564be;
-    --secondary: #f39d12c0;
+    --secondary: #d46b25; 
     --danger: #e74c3c;
     --text: #2c3e50;
     --border: #dcdde1;
@@ -74,7 +74,7 @@ body {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1200px; 
     width: 100%;
 }
 
@@ -87,12 +87,13 @@ header {
     background: var(--card);
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgb(153, 14, 177);
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
+    gap: 20px;
     margin-bottom: 20px;
     justify-content: center;
+    align-items: flex-end; 
 }
 
 .group {
@@ -100,96 +101,137 @@ header {
     flex-direction: column;
 }
 
-input, button {
+label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+}
+
+input {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid var(--border);
-    margin-top: 5px;
+    min-width: 200px;
 }
 
 button {
-    background: var(--primary);
-    color: white;
+
+    --bg: var(--primary); 
+    --shadow: #1564be;
+    padding: 10px 15px;
+    border-radius: 5px;
     border: none;
     cursor: pointer;
     font-weight: bold;
-    align-self: flex-end;
+    color: white;
+    transition: transform 0.1s, box-shadow 0.2s;
+    background-color: var(--bg);
+    box-shadow: 0 2px 5px var(--shadow);
 }
 
-button:hover { opacity: 0.9; }
-button.reset { background: var(--danger); }
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px var(--shadow);
+    filter: brightness(1.1); 
+}
+
+button:active {
+    transform: translateY(0) scale(0.95);
+    box-shadow: 0 2px 4px var(--shadow);
+}
+
+#resetBtn { 
+    --bg: var(--danger);     
+    --shadow: rgb(174, 41, 26); 
+}
+
+#addBlocBtn { 
+    --bg: #44ad49;
+    --shadow: rgba(56, 142, 60, 0.6); 
+}
+
+#randBtn { 
+    --bg: #8e44ad;
+    --shadow: rgba(170, 33, 220, 0.5); 
+}
+
+button:active { transform: scale(0.98); }
+button.reset { background: var(--danger); margin-left: auto; }
 
 .simulation-area {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr; 
     gap: 20px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .simulation-area { grid-template-columns: 1fr; }
 }
 
 .algorithm-panel {
     background: var(--card);
-    padding: 15px;
+    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-}
-
-h2 { margin-top: 0; font-size: 1.1rem; border-bottom: 2px solid var(--bg); padding-bottom: 10px; }
-
-.memory-track {
-    height: 350px;
-    background: #e9ecef;
-    border-radius: 5px;
+    box-shadow: 0 2px 10px rgb(153, 14, 177);
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 6px;
-    overflow-y: auto;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    text-align: center;
+    color: var(--primary);
+}
+
+.stats {
+    margin-bottom: 15px; 
+    font-size: 0.9rem;
+    background: #7598bc6a;
+    padding: 10px;
+    border-radius: 5px;
+    border-left: 5px solid var(--primary);
+    line-height: 1.5;
+}
+
+#stats-worst {
+    background: #fdb85077;
+    border-left-color: var(--secondary);
+}
+
+.memory-track {
+    min-height: 300px;
+    background: #e8e8e8;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .block {
-    background: #bdc3c7;
-    border: 1px solid #95a5a6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    position: relative;
     transition: all 0.3s ease;
-    min-height: 25px;
-    color: #2c3e50;
-    font-weight: 600;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scaleY(0.8); }
+    to { opacity: 1; transform: scaleY(1); }
 }
 
 .process-in-block {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    background: var(--primary);
-    color: white;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.footer {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: var(--text);
+    text-align: center;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    animation: slideIn 0.5s ease-out;
-}
-
-/* Color diferenciador para Worst Fit */
-#track-worst .process-in-block { background: var(--secondary); }
-
-.stats {
-    margin-top: 15px;
-    font-size: 0.85rem;
-    background: #f8f9fa;
-    padding: 12px;
-    border-radius: 5px;
-    border-left: 4px solid var(--primary);
-}
-
-#track-worst + .stats { border-left-color: var(--secondary); }
-
-@keyframes slideIn {
-    from { width: 0; opacity: 0; }
-    to { opacity: 1; }
+    flex-direction: column;
+    gap: 1px;
+    color: #0b33d3;
 }
 ```
 
@@ -201,27 +243,60 @@ let countBest = 0;
 let countWorst = 0;
 
 window.onload = function() {
-    console.log("Simulador vinculado correctamente.");
+    console.log("Simulador Listo.");
     
+    // Inicializar
     init();
+
+    // Event Listeners
     document.getElementById('addBtn').onclick = addProcess;
+    document.getElementById('addBlocBtn').onclick = addBlocks;
     document.getElementById('resetBtn').onclick = resetSim;
+    document.getElementById('randBtn').onclick = randomBlocks; 
 };
 
-function init() {
+function randomBlocks() {
+    // Generar 3 bloques aleatorios entre 100MB y 800MB
+    const randomSizes = [];
+    for(let i = 0; i < 3; i++) {
+        // Genera múltiplos de 50 para que sean números "bonitos"
+        // Math.random() * (max - min) + min
+        const size = Math.floor(Math.random() * 15 + 2) * 50; 
+        randomSizes.push(size);
+    }
+    document.getElementById('blocksInput').value = randomSizes.join(', ');
+    init();
+} 
+function addBlocks () {
     const input = document.getElementById('blocksInput').value;
 
+    if (input.trim() === "") {
+        alert("Ingresa un tamaño válido (Ej: 50, 150, 300).");
+        return;
+    } 
+    init();
+}
+
+function init() {
+    countBest = 0;
+    countWorst = 0;
+
+    const input = document.getElementById('blocksInput').value;
     const rawValue = input.trim() === "" ? "100, 500, 200, 300, 600" : input;
     
     const sizes = rawValue.split(',')
         .map(s => parseInt(s.trim()))
         .filter(n => !isNaN(n) && n > 0);
+
+    if (sizes.length === 0) {
+        alert("Configuración de bloques inválida.");
+        return;
+    }
     
+    // Crear estructuras independientes
     blocksBest = sizes.map((s, i) => ({ id: i, total: s, remaining: s, processes: [] }));
     blocksWorst = sizes.map((s, i) => ({ id: i, total: s, remaining: s, processes: [] }));
     
-    countBest = 0;
-    countWorst = 0;
     render();
 }
 
@@ -237,56 +312,61 @@ function renderTrack(elementId, blocks) {
     track.innerHTML = '';
 
     blocks.forEach(block => {
+        // Contenedor visual del bloque
         const blockEl = document.createElement('div');
         blockEl.className = 'block';
-       
-        blockEl.style.height = Math.max(45, block.total / 1.5) + 'px'; 
-        blockEl.style.border = "1px solid #555";
-        blockEl.style.marginBottom = "8px";
+        
+        // Estilos base para el bloque
+        blockEl.style.height = '50px'; 
+        blockEl.style.width = '100%'; 
         blockEl.style.position = "relative";
         blockEl.style.backgroundColor = "#2c3e50"; 
+        blockEl.style.border = "1px solid #fff";
         blockEl.style.borderRadius = "4px";
         blockEl.style.overflow = "hidden";
+        blockEl.style.display = "flex"; // Flexbox para alinear procesos
         
-        
-        const infoText = document.createElement('span');
-        infoText.innerHTML = `Libre: ${block.remaining}MB / ${block.total}MB`;
+        // Texto de información (centrado y flotante)
+        const infoText = document.createElement('div');
+        infoText.innerHTML = `Total: ${block.total} | <span style="color:#2ecc71">Libre: ${block.remaining}</span>`;
         infoText.style.position = "absolute";
-        infoText.style.right = "10px"; 
-        infoText.style.top = "50%";
-        infoText.style.transform = "translateY(-50%)"; 
-        infoText.style.zIndex = "10"; 
+        infoText.style.width = "100%";
+        infoText.style.height = "100%";
+        infoText.style.display = "flex";
+        infoText.style.alignItems = "center";
+        infoText.style.justifyContent = "center";
+        infoText.style.zIndex = "10";
         infoText.style.color = "#fff";
         infoText.style.fontSize = "11px";
         infoText.style.fontWeight = "bold";
-     
-        infoText.style.textShadow = "0px 0px 4px rgba(0,0,0,0.9)";
-        infoText.style.pointerEvents = "none"; 
+        infoText.style.textShadow = "1px 1px 2px black";
+        infoText.style.pointerEvents = "none";
         
         blockEl.appendChild(infoText);
 
+        // Renderizar procesos
         block.processes.forEach(p => {
             const pEl = document.createElement('div');
-            pEl.className = 'process-in-block';
             
-            pEl.style.width = (p.size / block.total * 100) + '%';
+            // Ancho proporcional
+            const widthPercent = (p.size / block.total) * 100;
+            
+            pEl.style.width = widthPercent + '%';
             pEl.style.height = "100%";
-            pEl.style.position = "absolute";
-            pEl.style.top = "0";
-            pEl.style.left = "0";
+            // Color según algoritmo
+            pEl.style.backgroundColor = elementId === 'track-best' ? '#3498db' : '#d35400'; 
+            pEl.style.borderRight = "1px solid rgba(255,255,255,0.4)";
+            pEl.style.boxSizing = "border-box";
+            
+            // Texto del proceso (P1, P2...)
+            pEl.innerText = `P${p.id}`;
             pEl.style.display = "flex";
             pEl.style.alignItems = "center";
-            pEl.style.justifyContent = "center"; 
+            pEl.style.justifyContent = "center";
             pEl.style.color = "white";
             pEl.style.fontSize = "10px";
-            pEl.style.fontWeight = "bold";
-            pEl.style.zIndex = "5"; 
-            
-           
-            pEl.style.backgroundColor = elementId === 'track-best' ? '#4a90e2' : '#e67e22';
-            pEl.style.borderRight = "1px solid rgba(255,255,255,0.3)";
-            
-            pEl.innerText = `P${p.id}`;
+            pEl.title = `Proceso ${p.id} (${p.size} MB)`;
+
             blockEl.appendChild(pEl);
         });
 
@@ -297,41 +377,53 @@ function renderTrack(elementId, blocks) {
 function addProcess() {
     const sizeInput = document.getElementById('processSizeInput');
     const size = parseInt(sizeInput.value);
-    
-    if (isNaN(size) || size <= 0) {
-        alert("Por favor, ingresa un tamaño de proceso válido.");
+
+
+    // Validar si cabe en algún lado
+    const canFitBest = blocksBest.some(b => b.remaining >= size);
+    const canFitWorst = blocksWorst.some(b => b.remaining >= size);
+
+    if (!canFitBest && !canFitWorst) {
+        alert("No hay espacio suficiente en ningún bloque.");
         return;
     }
 
- 
+    // --- BEST FIT ---
     let bestIdx = -1;
     let minDiff = Infinity;
     blocksBest.forEach((b, i) => {
-        if (b.remaining >= size && (b.remaining - size) < minDiff) {
-            minDiff = b.remaining - size;
-            bestIdx = i;
+        if (b.remaining >= size) {
+            let diff = b.remaining - size;
+            if (diff < minDiff) {
+                minDiff = diff;
+                bestIdx = i;
+            }
         }
     });
-
     if (bestIdx !== -1) {
         blocksBest[bestIdx].processes.push({ id: ++countBest, size: size });
         blocksBest[bestIdx].remaining -= size;
     }
 
+    // --- WORST FIT ---
     let worstIdx = -1;
     let maxDiff = -1;
     blocksWorst.forEach((b, i) => {
-        if (b.remaining >= size && (b.remaining - size) > maxDiff) {
-            maxDiff = b.remaining - size;
-            worstIdx = i;
+        if (b.remaining >= size) {
+            let diff = b.remaining - size;
+            if (diff > maxDiff) {
+                maxDiff = diff;
+                worstIdx = i;
+            }
         }
     });
-
     if (worstIdx !== -1) {
         blocksWorst[worstIdx].processes.push({ id: ++countWorst, size: size });
         blocksWorst[worstIdx].remaining -= size;
     }
 
+    sizeInput.value = '';
+    sizeInput.focus();
     render();
 }
 
@@ -342,13 +434,15 @@ function updateStats() {
     const sBest = document.getElementById('stats-best');
     const sWorst = document.getElementById('stats-worst');
 
-    if(sBest) sBest.innerHTML = `Fragmentación: ${fragBest} MB <br> Procesos: ${countBest}`;
-    if(sWorst) sWorst.innerHTML = `Fragmentación: ${fragWorst} MB <br> Procesos: ${countWorst}`;
+    if(sBest) sBest.innerHTML = `<strong>Fragmentación Total:</strong> ${fragBest} MB <br> <strong>Procesos:</strong> ${countBest}`;
+    if(sWorst) sWorst.innerHTML = `<strong>Fragmentación Total:</strong> ${fragWorst} MB <br> <strong>Procesos:</strong> ${countWorst}`;
 }
 
 function resetSim() {
+    document.getElementById('processSizeInput').value = '';
     init();
 }
+
 ```
 #imagen de programa ejecudandose.
 <img width="1366" height="763" alt="image" src="https://github.com/user-attachments/assets/e49601c9-b8e8-4ee7-9007-fd66f2727547" />
