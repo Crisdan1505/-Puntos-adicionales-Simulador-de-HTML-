@@ -444,8 +444,13 @@ function resetSim() {
 }
 
 ```
-#imagen de programa ejecudandose.
-<img width="1366" height="763" alt="image" src="https://github.com/user-attachments/assets/e49601c9-b8e8-4ee7-9007-fd66f2727547" />
+#imagen de interfaz.
+<img width="1359" height="767" alt="image" src="https://github.com/user-attachments/assets/49bf0192-fab0-4635-aa68-93ab248f0367" />
+<img width="1374" height="774" alt="image" src="https://github.com/user-attachments/assets/ca00ff1d-0354-42a1-be83-034213b49a23" />
+<img width="1362" height="780" alt="image" src="https://github.com/user-attachments/assets/aae8c8b9-3ad7-4f9f-b03e-3eff1018ee0b" />
+
+
+
 
 
 
